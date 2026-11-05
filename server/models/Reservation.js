@@ -12,7 +12,6 @@ const reservationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// DB-level double-booking protection
 reservationSchema.index({ date: 1, timeSlot: 1, tableNumber: 1 }, { unique: true });
 
 module.exports = mongoose.model('Reservation', reservationSchema);  

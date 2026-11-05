@@ -6,7 +6,7 @@ export function AboutView() {
       <div>
         <p className="eyebrow">Our kitchen <span className="live-pill"><i /> Since 2018</span></p>
         <h1>Made with care, <em>served with warmth.</em></h1>
-        <p className="heading-copy">Ember House is a neighborhood restaurant built around seasonal ingredients, thoughtful cooking, and making every table feel at home.</p>
+        <p className="heading-copy"> savor is a neighborhood restaurant built around seasonal ingredients, thoughtful cooking, and making every table feel at home.</p>
       </div>
     </section>
     <section className="about-grid">

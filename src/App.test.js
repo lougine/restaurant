@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders the Ember House workspace', () => {
+test('renders the  savor workspace', () => {
   render(<App />);
   expect(screen.getByRole('heading', { name: /Today's favorites/i })).toBeInTheDocument();
   expect(screen.queryByText(/Current order/i)).not.toBeInTheDocument();
@@ -11,11 +11,12 @@ test('renders the Ember House workspace', () => {
   expect(screen.queryByRole('button', { name: 'Reports' })).not.toBeInTheDocument();
 });
 
-test('reveals staff tools only after staff sign in', () => {
+test('shows kitchen tools for kitchen role and owner tools for owner role', () => {
   render(<App />);
   fireEvent.click(screen.getByRole('button', { name: 'Staff sign in' }));
   expect(screen.getByRole('button', { name: /Kitchen/ })).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /Reports/ })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Owner sign in' }));
   expect(screen.getByRole('button', { name: /Reports/ })).toBeInTheDocument();
-  fireEvent.click(screen.getByRole('button', { name: 'Sign out' }));
-  expect(screen.queryByRole('button', { name: /Kitchen/ })).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /Menu manager/ })).toBeInTheDocument();
 });

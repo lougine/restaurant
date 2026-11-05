@@ -4,7 +4,7 @@ import './Checkout.css';
 const fulfillmentOptions = [
   { id: 'here', label: 'Eat here', description: 'Enjoy your meal at the restaurant' },
   { id: 'delivery', label: 'Delivery', description: 'We will bring it to your address' },
-  { id: 'pickup', label: 'Pickup', description: 'Collect your order from Ember House' },
+  { id: 'pickup', label: 'Pickup', description: 'Collect your order from  savor' },
 ];
 
 export function Checkout({ cartTotal, tableNumber, setTableNumber, placeOrder, onClose }) {
@@ -36,7 +36,7 @@ export function Checkout({ cartTotal, tableNumber, setTableNumber, placeOrder, o
   }
 
   function openMaps() {
-    const query = encodeURIComponent(details.address || 'Ember House restaurant');
+    const query = encodeURIComponent(details.address || ' savor restaurant');
     window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank', 'noopener,noreferrer');
   }
 

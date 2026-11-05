@@ -14,10 +14,10 @@ export const menuItems = [
   { id: 6, name: 'Olive oil cake', description: 'Whipped mascarpone, lemon curd, rosemary', price: 11, category: 'Dessert', image: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=85', tag: 'Popular' },
 ];
 
-export function MenuView({ category, setCategory, addToCart, cart, cartCount, cartTotal, tableNumber, setTableNumber, changeQuantity, placeOrder, cartOpen, setCartOpen }) {
+export function MenuView({ category, setCategory, addToCart, menuItems, cart, cartCount, cartTotal, tableNumber, setTableNumber, changeQuantity, placeOrder, cartOpen, setCartOpen }) {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const categories = ['Popular', 'Vegetarian', 'Mains', 'Dessert', 'Drinks'];
-  const visibleItems = useMemo(() => category === 'Popular' ? menuItems.filter((item) => item.tag === 'Popular' || item.tag === "Chef's pick" || item.tag === 'Signature') : menuItems.filter((item) => item.category === category), [category]);
+  const visibleItems = useMemo(() => category === 'Popular' ? menuItems.filter((item) => item.tag === 'Popular' || item.tag === "Chef's pick" || item.tag === 'Signature') : menuItems.filter((item) => item.category === category), [category, menuItems]);
 
   return <div className="menu-page">
     <section className="menu-hero"><div className="menu-hero-copy"><p className="hero-kicker"><span /> Seasonal menu · Summer 2025</p><h1>Gather around<br /><em>good food.</em></h1><p>Bold Mediterranean flavors, local ingredients, and a little fire.<br />Made to share, remembered long after.</p><div className="hero-actions"><button className="hero-button" onClick={() => document.querySelector('.favorites-heading')?.scrollIntoView({ behavior: 'smooth' })}>Explore the menu <span>→</span></button><span className="open-note"><i /> Open today until 10:30 pm</span></div></div></section>
