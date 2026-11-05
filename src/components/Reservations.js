@@ -1,22 +1,13 @@
 import { useEffect, useState } from 'react';
-import './Reservations.css';
+import '../styles/Reservations.css';
 
+const API_ROOT = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
 const times = ['5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:15 pm'];
 const tables = [1, 2, 3, 4, 5, 6, 7, 8];
 
 function todayString() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-// Reservation stays active until the start of the day after its date
-function nextDayExpiry(date) {
-  const expiry = new Date(`${date}T00:00:00`);
-  expiry.setDate(expiry.getDate() + 1);
-  return expiry.toISOString();
-}
-
-function isActive(booking) {
-  return new Date(booking.expiresAt) > new Date();
+  const now = new Date();
+  return new Date(now.getTime() - now.getTimezoneOffset() * 60_000).toISOString().slice(0, 10);
 }
 
 function validName(name) {
@@ -33,31 +24,45 @@ export function ReservationsView() {
   const [form, setForm] = useState({ name: '', phone: '', date: todayString(), guests: '2' });
   const [confirmation, setConfirmation] = useState('');
   const [error, setError] = useState('');
-  const [reservations, setReservations] = useState(() => {
-    try {
-      const saved = JSON.parse(window.localStorage.getItem('savor-reservations') || '[]');
-      return saved.filter(isActive);
-    } catch (err) {
-      return [];
-    }
-  });
+  const [reservations, setReservations] = useState([]);
+  const [availabilityLoading, setAvailabilityLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    window.localStorage.setItem('savor-reservations', JSON.stringify(reservations.filter(isActive)));
-  }, [reservations]);
+    let cancelled = false;
+    setAvailabilityLoading(true);
+    fetch(`${API_ROOT}/reservations/availability?date=${encodeURIComponent(form.date)}`)
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || 'Could not load table availability.');
+        return result;
+      })
+      .then((result) => {
+        if (!cancelled) {
+          setReservations(result);
+          setError('');
+        }
+      })
+      .catch((loadError) => {
+        if (!cancelled) setError(loadError.message || 'Could not load table availability.');
+      })
+      .finally(() => {
+        if (!cancelled) setAvailabilityLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, [form.date]);
 
-  function isReserved(table, date = form.date, time = selectedTime) {
-    return reservations.some((booking) => isActive(booking) && booking.date === date && booking.time === time && booking.table === table);
+  function isReserved(table, time = selectedTime) {
+    return reservations.some((booking) => booking.timeSlot === time && Number(booking.tableNumber) === table);
   }
 
-  // If the selected table is taken for the chosen date/time, move to the first free one
   useEffect(() => {
-    if (isReserved(selectedTable)) {
-      const firstFree = tables.find((table) => !isReserved(table));
+    const selectedIsReserved = reservations.some((booking) => booking.timeSlot === selectedTime && Number(booking.tableNumber) === selectedTable);
+    if (selectedIsReserved) {
+      const firstFree = tables.find((table) => !reservations.some((booking) => booking.timeSlot === selectedTime && Number(booking.tableNumber) === table));
       setSelectedTable(firstFree ?? null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.date, selectedTime, reservations]);
+  }, [selectedTable, selectedTime, reservations]);
 
   function updateForm(event) {
     setConfirmation('');
@@ -67,7 +72,7 @@ export function ReservationsView() {
     setForm((current) => ({ ...current, [name]: value }));
   }
 
-  function submitReservation(event) {
+  async function submitReservation(event) {
     event.preventDefault();
     setConfirmation('');
     if (!validName(form.name)) {
@@ -87,11 +92,25 @@ export function ReservationsView() {
       return;
     }
     setError('');
-    setReservations((current) => [
-      ...current.filter(isActive),
-      { name: form.name.trim(), phone: form.phone, date: form.date, time: selectedTime, table: selectedTable, guests: form.guests, expiresAt: nextDayExpiry(form.date) },
-    ]);
-    setConfirmation(`Table ${selectedTable} is reserved for ${form.name.trim()}.`);
+    setSubmitting(true);
+    try {
+      const response = await fetch(`${API_ROOT}/reservations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name.trim(), phone: form.phone, date: form.date, timeSlot: selectedTime, tableNumber: selectedTable, guests: Number(form.guests) }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message || 'Your reservation could not be saved.');
+      setReservations((current) => [...current, result]);
+      setConfirmation(`Table ${selectedTable} is reserved for ${form.name.trim()}.`);
+    } catch (submitError) {
+      setError(submitError.message || 'Your reservation could not be saved.');
+      if (submitError.message?.includes('already booked')) {
+        setReservations((current) => [...current, { timeSlot: selectedTime, tableNumber: selectedTable }]);
+      }
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return <div className="reservations-page">
@@ -106,10 +125,11 @@ export function ReservationsView() {
         <h2>Find a table</h2>
         <div className="booking-fields"><label>Date<input name="date" type="date" value={form.date} min={todayString()} onChange={updateForm} required /></label><label>Guests<select name="guests" value={form.guests} onChange={updateForm}><option value="1">1 guest</option><option value="2">2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option></select></label></div>
         <label className="booking-label">Available times</label><div className="time-grid">{times.map((time) => <button type="button" key={time} className={selectedTime === time ? 'selected' : ''} onClick={() => { setConfirmation(''); setError(''); setSelectedTime(time); }}>{time}</button>)}</div>
-        <label className="booking-label">Choose your table</label><div className="table-picker">{tables.map((table) => { const reserved = isReserved(table); return <button type="button" key={table} className={`${selectedTable === table ? 'selected' : ''} ${reserved ? 'occupied' : ''}`} disabled={reserved} onClick={() => setSelectedTable(table)}>{reserved ? `Reserved · ${table}` : `Table ${table}`}</button>; })}</div>
+        <label className="booking-label">Choose your table</label>{availabilityLoading && <p className="availability-note">Checking availability…</p>}<div className="table-picker">{tables.map((table) => { const reserved = isReserved(table); return <button type="button" key={table} className={`${selectedTable === table ? 'selected' : ''} ${reserved ? 'occupied' : ''}`} disabled={reserved || availabilityLoading} onClick={() => { setError(''); setSelectedTable(table); }}>{reserved ? `Reserved · ${table}` : `Table ${table}`}</button>; })}</div>
         <div className="booking-contact"><label>Full name<input name="name" value={form.name} onChange={updateForm} placeholder="First and last name" autoComplete="name" required /></label><label>Phone number<input name="phone" type="tel" inputMode="numeric" value={form.phone} onChange={updateForm} placeholder="11-digit phone number" maxLength={11} autoComplete="tel" required /></label></div>
-        <button className="reserve-button" type="submit">Reserve table <span>→</span></button>
+        <button className="reserve-button" type="submit" disabled={submitting || availabilityLoading}>{submitting ? 'Saving reservation…' : 'Reserve table'} <span>→</span></button>
         {error ? <p className="reservation-error" style={{ color: '#c0392b', margin: '10px 0 0' }}>{error}</p> : confirmation ? <p className="reservation-confirmation">✓ {confirmation}</p> : <p className="cancellation-note">Free cancellation up to 2 hours before your booking.</p>}
+        <p className="reservation-cancel-call">For cancellations, please call <a href="tel:+201000000000">+20 100 000 0000</a>.</p>
       </form>
     </section>
   </div>;

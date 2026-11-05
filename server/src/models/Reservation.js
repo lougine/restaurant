@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const reservationSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
+  phone: { type: String, trim: true },
   date: { type: String, required: true },
   timeSlot: { type: String, required: true },
   tableNumber: { type: Number, min: 1 },

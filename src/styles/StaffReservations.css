@@ -1,0 +1,154 @@
+.staff-reservations-page {
+  min-height: calc(100vh - 78px);
+  padding-bottom: 55px;
+}
+
+.staff-reservation-date {
+  display: grid;
+  gap: 8px;
+  color: #85877e;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.staff-reservation-date input {
+  min-width: 190px;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #dedfd6;
+  border-radius: 10px;
+  background: transparent;
+  color: #1d2c24;
+  font: 600 13px 'Trebuchet MS', Arial, sans-serif;
+}
+
+.staff-reservation-board {
+  max-width: 1270px;
+  margin: 0 auto;
+  padding: 0 5.2%;
+}
+
+.staff-reservation-board-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e7e8e1;
+}
+
+.staff-reservation-board-heading h2 {
+  margin: 0;
+  color: #1d2c24;
+  font: 600 20px Georgia, serif;
+}
+
+.staff-reservation-board-heading > span {
+  color: #85877e;
+  font-size: 12px;
+}
+
+.staff-reservation-list {
+  display: grid;
+  gap: 10px;
+}
+
+.staff-reservation-card {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 17px 20px;
+  border: 1px solid #e7e8e1;
+  border-radius: 14px;
+  background: #fbfaf6;
+}
+
+.staff-reservation-time {
+  color: #1d2c24;
+  font: 600 18px Georgia, serif;
+}
+
+.staff-reservation-details h3 {
+  margin: 0;
+  color: #1d2c24;
+  font: 600 17px Georgia, serif;
+}
+
+.staff-reservation-details p,
+.staff-reservation-details a {
+  display: block;
+  margin: 5px 0 0;
+  color: #85877e;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.staff-reservation-details p span {
+  padding: 0 5px;
+}
+
+.staff-reservation-status {
+  padding: 7px 11px;
+  border-radius: 18px;
+  background: #e6eee1;
+  color: #536d49;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.staff-reservation-empty,
+.staff-data-error {
+  padding: 24px;
+  border-radius: 12px;
+  background: #fbfaf6;
+  color: #85877e;
+  text-align: center;
+}
+
+.staff-data-error {
+  margin: 0 0 14px;
+  background: #fbefec;
+  color: #a64a3c;
+  text-align: left;
+}
+
+@media (max-width: 700px) {
+  .staff-reservations-page .page-heading {
+    gap: 18px;
+  }
+
+  .staff-reservation-date {
+    width: 100%;
+  }
+
+  .staff-reservation-date input {
+    width: 100%;
+  }
+
+  .staff-reservation-board {
+    padding: 0 16px;
+  }
+
+  .staff-reservation-board-heading h2 {
+    font-size: 17px;
+  }
+
+  .staff-reservation-card {
+    grid-template-columns: 1fr auto;
+    gap: 8px 14px;
+    padding: 15px;
+  }
+
+  .staff-reservation-time {
+    grid-column: 1 / -1;
+  }
+
+  .staff-reservation-status {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
