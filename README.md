@@ -1,82 +1,32 @@
+# Savor Restaurant
 
-## Backend
+Restaurant website for browsing the menu, placing pickup, delivery, or table orders, and making reservations. Staff can manage live orders and reservations; the owner can view sales reports and manage menu items.
 
-The Express, MongoDB, and Socket.io backend lives in `server/`.
+## Start the website
 
-1. Copy `.env.example` to `.env` and set `MONGODB_URI` to your MongoDB or Atlas connection string.
-2. Start the API with `npm run server`.
-3. Use `npm run server:dev` during development for automatic restarts.
+In the project folder, run:
 
-The API runs on `http://localhost:4000` and exposes `/api/menu`, `/api/orders`, `/api/reservations`, and `/api/health`. Socket.io broadcasts `order:created`, `order:updated`, and `reservation:created` events.
+```bash
+npm run start
+```
 
-When `MONGODB_URI` is missing, the server uses an in-memory store so the API can still be developed locally. Data in that mode is lost when the server restarts.
-# Getting Started with Create React App
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Sign in
 
-## Available Scripts
+Choose **Staff / Owner sign in** in the website.
 
-In the project directory, you can run:
+| Access | Email | Password |
+| --- | --- | --- |
+| Kitchen / staff | `staff@savor.restaurant.eg` | `savor2026` |
+| Owner | `owner@savor.restaurant.eg` | `savor2026` |
 
-### `npm start`
+## Start the backend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+For sign-in, live orders, and reservations, run the API in a second terminal:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm run server
+```
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The API runs at `http://localhost:4000`. To save application data in MongoDB, configure `MONGODB_URI` in `server/.env` before starting the API. See [server/README.md](server/README.md) for setup details.
