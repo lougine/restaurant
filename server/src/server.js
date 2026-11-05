@@ -4,27 +4,44 @@ const cors = require('cors');
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
+const jwt = require('jsonwebtoken');
 const connectDatabase = require('./config/db');
 const authRoutes = require('./routes/auth');
 const menuRoutes = require('./routes/menu');
 const orderRoutes = require('./routes/orders');
-const reservationRoutes = require('./routes/reservations');
 
 if (!process.env.JWT_SECRET) throw new Error('JWT_SECRET is required in server/.env');
 
 const app = express();
 const httpServer = http.createServer(app);
-const io = new Server(httpServer, { cors: { origin: process.env.CLIENT_URL || 'http://localhost:5173' } });
+const clientOrigins = [...new Set([
+  'http://localhost:3000',
+  'http://localhost:5173',
+  ...(process.env.CLIENT_URL || '').split(',').map((origin) => origin.trim()).filter(Boolean),
+])];
+const io = new Server(httpServer, { cors: { origin: clientOrigins } });
+io.use((socket, next) => {
+  const token = socket.handshake.auth?.token;
+  if (!token) return next(new Error('Authentication required'));
+  try {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    if (!['kitchen', 'owner'].includes(user.role)) return next(new Error('Staff access required'));
+    socket.user = user;
+    return next();
+  } catch (error) {
+    return next(new Error('Invalid or expired token'));
+  }
+});
+io.on('connection', (socket) => socket.join('team'));
 
 app.set('io', io);
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
+app.use(cors({ origin: clientOrigins }));
 app.use(express.json());
 
 app.get('/api/health', (request, response) => response.json({ ok: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/orders', orderRoutes);
-app.use(express.json());
 app.use('/api/reservations', require('./routes/reservations'));
 
 app.use((error, request, response, next) => {

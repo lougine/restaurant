@@ -13,6 +13,16 @@ Express + MongoDB + Mongoose + JWT + Socket.io backend for the restaurant system
 npm install --prefix server
 ```
 
+## Team accounts
+
+Team accounts are stored in MongoDB. To create or update them, temporarily set `STAFF_LOGIN_EMAIL`, `STAFF_LOGIN_PASSWORD`, `OWNER_LOGIN_EMAIL`, and `OWNER_LOGIN_PASSWORD` in `server/.env`, then run:
+
+```bash
+npm run seed:team --prefix server
+```
+
+Passwords are saved as bcrypt hashes. Remove the temporary login values from `server/.env` after seeding.
+
 ## Run
 
 From the repository root:

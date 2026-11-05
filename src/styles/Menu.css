@@ -1,0 +1,382 @@
+.menu-page .menu-section,
+.menu-page .cart-panel {
+  min-width: 0;
+}
+
+.menu-page .menu-card {
+  min-width: 0;
+}
+
+.menu-page .menu-card .food-image {
+  aspect-ratio: 1.3 / 1;
+  min-height: 0;
+}
+
+.menu-page .food-image-cutout,
+.menu-item-modal-image-cutout {
+  background-color: #f7f4ed;
+}
+
+.menu-page .food-image-cutout {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu-item-modal-image-cutout {
+  object-fit: contain;
+}
+
+.menu-page .menu-card .food-details {
+  min-height: 0;
+  padding: 16px 18px 12px;
+}
+
+.menu-page .menu-card .food-card-title {
+  margin-bottom: 8px;
+}
+
+.menu-page .menu-card-more {
+  padding: 0 18px 14px;
+}
+
+.menu-page .menu-card-photo {
+  position: relative;
+}
+
+.menu-page .menu-card-expand,
+.menu-page .menu-card-details-button {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.menu-page .menu-card-expand:focus-visible,
+.menu-page .menu-card-details-button:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: -3px;
+}
+
+.menu-page .food-card-title,
+.menu-page .food-description {
+  display: block;
+}
+
+.menu-page .food-card-title {
+  margin-bottom: 12px;
+  color: #1d2c24;
+  font: 600 23px/1.05 Georgia, serif;
+}
+
+.menu-page .food-description {
+  color: #868d85;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.menu-page .food-price {
+  flex: 0 0 auto;
+  color: #1d2c24;
+  font: 600 17px Georgia, serif;
+}
+
+.menu-page .menu-card-more {
+  display: block;
+  padding: 0 22px 18px;
+  color: #aa7912;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.menu-item-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(23, 35, 28, 0.66);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.menu-item-modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  width: min(720px, 72vw);
+  height: min(540px, 78vh);
+  max-height: 78vh;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fff;
+  color: #1d2c24;
+  box-shadow: 0 24px 80px #1118;
+}
+
+.menu-item-modal-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+}
+
+.menu-item-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #263029;
+  font-size: 25px;
+  box-shadow: 0 3px 14px #1112;
+}
+
+.menu-item-modal-content {
+  align-self: center;
+  max-height: 100%;
+  overflow: hidden;
+  padding: 24px 26px;
+}
+
+.menu-item-modal-content > .eyebrow {
+  color: #aa7912;
+}
+
+.menu-item-modal-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.menu-item-modal-title-row h2 {
+  margin: 0;
+  font: 400 36px/1.06 Georgia, serif;
+}
+
+.menu-item-modal-title-row > strong {
+  color: #1d3026;
+  font: 600 20px Georgia, serif;
+}
+
+.menu-item-modal-description {
+  margin: 15px 0 23px;
+  color: #858d85;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.menu-item-modal .menu-item-information {
+  display: grid;
+  gap: 15px;
+  padding: 18px 0 0;
+  border-top: 1px solid #eceee8;
+  color: #667068;
+}
+
+.menu-item-modal .menu-item-information h3 {
+  margin: 0 0 6px;
+  color: #1d3026;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.menu-item-modal .menu-item-information p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.menu-item-modal .menu-item-information .allergen-note {
+  color: #9a6a54;
+  font-size: 11px;
+}
+
+.menu-item-modal-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 50px;
+  margin-top: 25px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 28px;
+  background: #edbd35;
+  color: #17261f;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.menu-item-modal-add span {
+  font-size: 20px;
+}
+
+.menu-page .food-image {
+  aspect-ratio: 16 / 10;
+  height: auto;
+  min-height: 150px;
+}
+
+.menu-page .category-row {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.menu-page .category-row::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-page .table-number-field input {
+  width: 100%;
+}
+
+.menu-page .cart-checkout-note {
+  color: #999d94;
+  font-size: 10px;
+  line-height: 1.5;
+  margin: 14px 0 0;
+}
+
+@media (max-width: 700px) {
+  .menu-page .food-image {
+    aspect-ratio: 16 / 10;
+    min-height: 175px;
+  }
+
+  .menu-page .food-details {
+    align-items: flex-start;
+  }
+
+  .menu-page .food-card-title {
+    font-size: 21px;
+  }
+
+  .menu-page .menu-card-more {
+    padding-right: 19px;
+    padding-left: 19px;
+  }
+
+  .menu-item-modal-backdrop {
+    place-items: end center;
+    padding: 0;
+  }
+
+  .menu-item-modal {
+    grid-template-columns: 1fr;
+    grid-template-rows: clamp(120px, 24vh, 180px) minmax(0, 1fr);
+    width: 100vw;
+    max-width: none;
+    height: 60vh;
+    max-height: 60vh;
+    overflow: hidden;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .menu-item-modal-image {
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .menu-item-modal-content {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    overflow: hidden;
+    padding: 10px 10px 8px;
+  }
+
+  .menu-item-modal-close {
+    top: 10px;
+    right: 10px;
+    left: auto;
+    width: 34px;
+    height: 34px;
+    min-height: 34px;
+    font-size: 21px;
+  }
+
+  .menu-item-modal-content > .eyebrow {
+    margin: 0 0 4px;
+    font-size: 10px;
+    line-height: 1.1;
+  }
+
+  .menu-item-modal-title-row h2 {
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .menu-item-modal-title-row > strong {
+    font-size: 16px;
+  }
+
+  .menu-item-modal-description {
+    margin: 7px 0 10px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .menu-item-modal .menu-item-information {
+    grid-template-columns: 1fr;
+    gap: 5px 10px;
+    padding-top: 7px;
+  }
+
+  .menu-item-modal .menu-item-information h3 {
+    margin-bottom: 3px;
+    font-size: 11px;
+  }
+
+  .menu-item-modal .menu-item-information p {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .menu-item-modal .menu-item-information .allergen-note {
+    grid-column: 1 / -1;
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  .menu-item-modal-add {
+    flex: 0 0 44px;
+    min-height: 44px;
+    margin-top: auto;
+    padding: 0 14px;
+    font-size: 10px;
+  }
+
+  .menu-item-modal-add span {
+    font-size: 16px;
+  }
+}
