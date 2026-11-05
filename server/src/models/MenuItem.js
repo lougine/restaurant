@@ -6,6 +6,11 @@ const menuItemSchema = new mongoose.Schema({
   category: { type: String, required: true, trim: true },
   imageUrl: { type: String, default: '' },
   description: { type: String, default: '' },
+  tag: { type: String, default: '' },
+  ingredients: { type: [String], default: [] },
+  allergens: { type: [String], default: [] },
+  sourceId: { type: Number, unique: true, sparse: true },
+  isAvailable: { type: Boolean, default: true },
 }, { timestamps: true });
 
 module.exports = mongoose.model('MenuItem', menuItemSchema);

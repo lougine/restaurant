@@ -36,7 +36,7 @@ io.on('connection', (socket) => socket.join('team'));
 
 app.set('io', io);
 app.use(cors({ origin: clientOrigins }));
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 
 app.get('/api/health', (request, response) => response.json({ ok: true }));
 app.use('/api/auth', authRoutes);

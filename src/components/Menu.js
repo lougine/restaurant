@@ -8,13 +8,15 @@ import blueberryMojitoImage from '../attachments/Blueberry-mojito.png';
 import bluePassionMojitoImage from '../attachments/Blue-Passion-mojito.png';
 import passionMojitoImage from '../attachments/Passion-mojito.png';
 
+const MENU_API_ROOT = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
+
 export const menuItems = [
-  { id: 1, name: 'Charred octopus', description: 'White bean purée, preserved lemon, smoked paprika', ingredients: ['Octopus', 'White bean purée', 'Preserved lemon', 'Smoked paprika'], allergens: ['Molluscs'], price: 400, category: 'Popular', image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=85', tag: "Chef's pick" },
+  { id: 1, name: 'Charred octopus', description: 'White bean purée, preserved lemon, smoked paprika', ingredients: ['Octopus', 'White bean purée', 'Preserved lemon', 'Smoked paprika'], allergens: ['Molluscs'], price: 400, category: 'Appetizers', image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=85', tag: "Chef's pick" },
   { id: 2, name: 'Garden mezze', description: 'Whipped feta, seasonal vegetables, warm flatbread', ingredients: ['Whipped feta', 'Seasonal vegetables', 'Warm flatbread'], allergens: ['Milk', 'Wheat (gluten)'], price: 350, category: 'Vegetarian', image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85', tag: 'Vegetarian' },
   { id: 3, name: 'Lamb shoulder', description: 'Slow roasted lamb, saffron rice, herb chermoula', ingredients: ['Slow-roasted lamb', 'Saffron rice', 'Herb chermoula'], allergens: [], price: 320, category: 'Mains', image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85', tag: 'Signature' },
-  { id: 4, name: 'Fire-roasted flatbread', description: 'Tomato, burrata, basil oil, Aleppo pepper', ingredients: ['Flatbread', 'Tomato', 'Burrata', 'Basil oil', 'Aleppo pepper'], allergens: ['Wheat (gluten)', 'Milk'], price: 210, category: 'Popular', image: 'https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=800&q=85', tag: 'Popular' },
+  { id: 4, name: 'Fire-roasted flatbread', description: 'Tomato, burrata, basil oil, Aleppo pepper', ingredients: ['Flatbread', 'Tomato', 'Burrata', 'Basil oil', 'Aleppo pepper'], allergens: ['Wheat (gluten)', 'Milk'], price: 210, category: 'Appetizers', image: 'https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=800&q=85', tag: 'Signature' },
   { id: 5, name: 'Citrus salmon', description: 'Roasted salmon, fennel, orange beurre blanc', ingredients: ['Roasted salmon', 'Fennel', 'Orange beurre blanc'], allergens: ['Fish', 'Milk'], price: 280, category: 'Mains', image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=85', tag: 'Chef pick' },
-  { id: 6, name: 'Olive oil cake', description: 'Whipped mascarpone, lemon curd, rosemary', ingredients: ['Olive oil cake', 'Whipped mascarpone', 'Lemon curd', 'Rosemary'], allergens: ['Wheat (gluten)', 'Eggs', 'Milk'], price: 250, category: 'Dessert', image: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=85', tag: 'Popular' },
+  { id: 6, name: 'Olive oil cake', description: 'Whipped mascarpone, lemon curd, rosemary', ingredients: ['Olive oil cake', 'Whipped mascarpone', 'Lemon curd', 'Rosemary'], allergens: ['Wheat (gluten)', 'Eggs', 'Milk'], price: 250, category: 'Dessert', image: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=85' },
   { id: 7, name: 'Blueberry mojito', description: 'Blueberry, Lime, cane sugar, soda', ingredients: ['Blueberry', 'Lime', 'Cane sugar', 'Soda water'], allergens: [], price: 150, category: 'Drinks', image: blueberryMojitoImage },
   { id: 8, name: 'Passion mojito', description: 'Passion, cange sugar, lime, soda', ingredients: ['Passion', 'Lime', 'Cane sugar', 'Soda water'], allergens: [], price: 150, category: 'Drinks', image: passionMojitoImage },
   { id: 9, name: 'Blue Passion mojito', description: 'Blue passion, lime, cane sugar, soda water', ingredients: ['Blue passion', 'Lime', 'Cane sugar', 'Soda water'], allergens: [], price: 150, category: 'Drinks', image: bluePassionMojitoImage },
@@ -24,20 +26,27 @@ export function MenuView({ category, setCategory, addToCart, menuItems, cart, ca
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const categories = ['Popular', 'Vegetarian', 'Mains', 'Dessert', 'Drinks'];
+  const [popularity, setPopularity] = useState({});
+  const categories = ['All', 'Appetizers', 'Vegetarian', 'Mains', 'Dessert', 'Drinks'];
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${MENU_API_ROOT}/orders/popular`).then((response) => response.json()).then((result) => {
+      if (!cancelled && Array.isArray(result)) setPopularity(Object.fromEntries(result.map((item) => [item.name.trim().toLowerCase(), item.quantity])));
+    }).catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
+
   const visibleItems = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    const categoryItems = query
-      ? menuItems
-      : category === 'Popular'
-        ? menuItems.filter((item) => item.tag === 'Popular' || item.tag === "Chef's pick" || item.tag === 'Signature')
-        : menuItems.filter((item) => item.category === category);
+    const categoryItems = [...(query || category === 'All' ? menuItems : menuItems.filter((item) => item.category === category))];
+    categoryItems.sort((first, second) => (popularity[second.name.trim().toLowerCase()] || 0) - (popularity[first.name.trim().toLowerCase()] || 0));
     return categoryItems.filter((item) => !query || [item.name, item.description, item.category, ...(item.ingredients || []), ...(item.allergens || [])].join(' ').toLowerCase().includes(query));
-  }, [category, menuItems, searchQuery]);
+  }, [category, menuItems, popularity, searchQuery]);
 
   return <div className="menu-page">
-    <section className="menu-hero"><div className="menu-hero-copy"><p className="hero-kicker"><span /> Seasonal menu · Summer 2025</p><h1>Gather around<br /><em>good food.</em></h1><p>Bold Mediterranean flavors, local ingredients, and a little fire.<br />Made to share, remembered long after.</p><div className="hero-actions"><button className="hero-button" onClick={() => document.querySelector('.favorites-heading')?.scrollIntoView({ behavior: 'smooth' })}>Explore the menu <span>→</span></button><span className="open-note"><i /> Open today until  11:00 pm</span></div></div></section>
-    <section className="favorites-heading"><div><p className="eyebrow">From our kitchen</p><h1>Today's <em>favorites</em></h1></div><div className="menu-filter-tools"><label className="menu-search"><span aria-hidden="true">⌕</span><input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search the menu" aria-label="Search the menu" /></label><div className="category-row">{categories.map((item) => <button key={item} className={category === item ? 'selected' : ''} onClick={() => setCategory(item)}>{item}</button>)}</div></div></section>
+    <section className="menu-hero"><div className="menu-hero-copy"><p className="hero-kicker"><span /> Seasonal menu · Summer 2026</p><h1>Gather around<br /><em>good food.</em></h1><p>Bold Mediterranean flavors, local ingredients, and a little fire.<br />Made to share, remembered long after.</p><div className="hero-actions"><button className="hero-button" onClick={() => document.querySelector('.favorites-heading')?.scrollIntoView({ behavior: 'smooth' })}>Explore the menu <span>→</span></button><span className="open-note"><i /> Open today until  11:00 pm</span></div></div></section>
+    <section className="favorites-heading"><div><p className="eyebrow">From our kitchen</p><h1>{category === 'All' ? <>Most <em>ordered</em></> : <>{category} <em>menu</em></>}</h1></div><div className="menu-filter-tools"><label className="menu-search"><span aria-hidden="true">⌕</span><input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search the menu" aria-label="Search the menu" /></label><div className="category-row">{categories.map((item) => <button key={item} className={category === item ? 'selected' : ''} onClick={() => setCategory(item)}>{item}</button>)}</div></div></section>
     <div className="menu-layout"><section className="menu-section">{visibleItems.length ? <div className="menu-grid">{visibleItems.map((item) => {
       return <article className="menu-card" key={item.id}>
         <div className="menu-card-photo">

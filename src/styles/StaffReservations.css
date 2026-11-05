@@ -13,6 +13,54 @@
   text-transform: uppercase;
 }
 
+.staff-reservations-page > .page-heading {
+  align-items: flex-end;
+}
+
+.staff-reservation-filters {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(360px, 1fr);
+  align-items: end;
+  gap: 22px;
+  width: min(700px, 60%);
+}
+
+.staff-reservation-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.staff-reservation-times legend {
+  margin-bottom: 8px;
+  color: #85877e;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.staff-reservation-times button {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid #dedfd6;
+  border-radius: 18px;
+  background: transparent;
+  color: #777a71;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.staff-reservation-times button.selected {
+  border-color: #1d2c24;
+  background: #1d2c24;
+  color: #fff;
+}
+
 .staff-reservation-date input {
   min-width: 190px;
   height: 44px;
@@ -49,6 +97,148 @@
 .staff-reservation-board-heading > span {
   color: #85877e;
   font-size: 12px;
+}
+
+.staff-table-view {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(250px, .8fr);
+  gap: 18px;
+}
+
+.staff-floor-layout,
+.staff-table-details {
+  min-height: 250px;
+  padding: 22px;
+  border: 1px solid #e7e8e1;
+  border-radius: 14px;
+  background: #fbfaf6;
+}
+
+.staff-floor-label {
+  margin-bottom: 20px;
+  color: #85877e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.staff-floor-tables {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(75px, 1fr));
+  gap: 12px;
+}
+
+.staff-floor-table {
+  display: grid;
+  place-content: center;
+  gap: 5px;
+  min-height: 82px;
+  border: 1px solid #dfe4d9;
+  border-radius: 12px;
+  background: #edf1e9;
+  color: #536d49;
+  text-align: center;
+}
+
+.staff-floor-table span {
+  font: 600 14px Georgia, serif;
+}
+
+.staff-floor-table small {
+  font-size: 10px;
+}
+
+.staff-floor-table.reserved {
+  border-color: #e4b29e;
+  background: #f3dfd6;
+  color: #a64a3c;
+}
+
+.staff-floor-table.selected {
+  outline: 2px solid #1d2c24;
+  outline-offset: 2px;
+}
+
+.staff-floor-table:disabled {
+  cursor: default;
+}
+
+.staff-floor-legend {
+  display: flex;
+  gap: 18px;
+  margin-top: 20px;
+  color: #85877e;
+  font-size: 11px;
+}
+
+.staff-floor-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.staff-floor-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #a9bc9f;
+}
+
+.staff-floor-legend i.reserved {
+  background: #cf8369;
+}
+
+.staff-table-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #85877e;
+}
+
+.staff-table-details .eyebrow {
+  margin-bottom: 14px;
+}
+
+.staff-table-details h3 {
+  margin: 0 0 8px;
+  color: #1d2c24;
+  font: 600 22px Georgia, serif;
+}
+
+.staff-table-details p:not(.eyebrow) {
+  margin: 0 0 12px;
+  font-size: 12px;
+}
+
+.staff-table-details > strong {
+  margin-bottom: 8px;
+  color: #1d2c24;
+  font: 600 16px Georgia, serif;
+}
+
+.staff-table-details > a {
+  margin-bottom: 18px;
+  color: #536d49;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.staff-table-hint {
+  display: grid;
+  place-content: center;
+  flex: 1;
+  text-align: center;
+}
+
+.staff-table-hint span {
+  color: #b6b8af;
+  font-size: 28px;
+}
+
+.staff-table-hint p {
+  max-width: 220px;
+  line-height: 1.6;
 }
 
 .staff-reservation-list {
@@ -125,6 +315,18 @@
     width: 100%;
   }
 
+  .staff-reservation-filters {
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 18px;
+  }
+
+  .staff-reservation-times {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+
   .staff-reservation-date input {
     width: 100%;
   }
@@ -135,6 +337,29 @@
 
   .staff-reservation-board-heading h2 {
     font-size: 17px;
+  }
+
+  .staff-table-view {
+    grid-template-columns: 1fr;
+  }
+
+  .staff-floor-layout,
+  .staff-table-details {
+    min-height: 0;
+    padding: 17px;
+  }
+
+  .staff-floor-tables {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .staff-floor-table {
+    min-height: 70px;
+  }
+
+  .staff-table-details {
+    min-height: 190px;
   }
 
   .staff-reservation-card {
