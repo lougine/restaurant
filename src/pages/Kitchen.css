@@ -1,0 +1,32 @@
+/* Kitchen display page */
+.kitchen-page .kitchen-board {
+  min-width: 0;
+}
+
+.kitchen-page .order-columns {
+  min-width: 0;
+}
+
+.kitchen-page .order-card {
+  min-width: 0;
+}
+
+.kitchen-page .order-card p {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .kitchen-page .order-columns {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .kitchen-page .order-columns {
+    overflow-x: visible;
+  }
+
+  .kitchen-page .order-column {
+    width: 100%;
+  }
+}

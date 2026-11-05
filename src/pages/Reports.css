@@ -1,0 +1,32 @@
+/* Owner reports page */
+.reports-page .metric-card,
+.reports-page .sales-card,
+.reports-page .popular-card {
+  min-width: 0;
+}
+
+.reports-page .chart-area,
+.reports-page .top-seller {
+  min-width: 0;
+}
+
+.reports-page .top-seller div:nth-child(3) {
+  overflow: hidden;
+}
+
+.reports-page .top-seller strong,
+.reports-page .top-seller span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .reports-page .metric-card {
+    min-width: 0;
+  }
+
+  .reports-page .chart {
+    min-width: 0;
+  }
+}

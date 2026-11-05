@@ -3,7 +3,9 @@ import App from './App';
 
 test('renders the Ember House workspace', () => {
   render(<App />);
-  expect(screen.getByRole('heading', { name: /Good food, made easy/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /Today's favorites/i })).toBeInTheDocument();
+  expect(screen.queryByText(/Current order/i)).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /Open cart/ }));
   expect(screen.getByText(/Current order/i)).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: 'Kitchen' })).not.toBeInTheDocument();
   expect(screen.queryByRole('button', { name: 'Reports' })).not.toBeInTheDocument();

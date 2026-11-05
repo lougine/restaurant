@@ -1,0 +1,228 @@
+/* Shared Savor visual direction: warm paper, dark green, citrus yellow. */
+:root {
+  --savor-ink: #1d2c24;
+  --savor-paper: #f7f4ed;
+  --savor-yellow: #f4c84e;
+}
+
+body {
+  background: var(--savor-paper);
+}
+
+.sidebar {
+  background: var(--savor-paper);
+  border-bottom-color: #e4dfd4;
+  box-shadow: 0 1px 0 rgba(29, 44, 36, 0.02);
+}
+
+.brand {
+  color: var(--savor-ink);
+  font: 700 24px/1 Georgia, serif;
+  letter-spacing: -0.8px;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  background: var(--savor-ink);
+  border: 0;
+  color: var(--savor-yellow);
+  font: 700 20px Georgia, serif;
+}
+
+.nav-item {
+  color: #777a72;
+  border-radius: 0;
+  font-weight: 600;
+}
+
+.nav-item.active {
+  background: transparent;
+  color: var(--savor-ink);
+  box-shadow: inset 0 -3px 0 var(--savor-yellow);
+}
+
+.nav-icon {
+  display: none;
+}
+
+.book-table-nav {
+  border: 1px solid #6f766e;
+  background: transparent;
+  color: var(--savor-ink);
+  border-radius: 999px;
+  min-height: 44px;
+  padding: 8px 18px;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.book-table-nav span {
+  margin-left: 8px;
+}
+
+.topbar {
+  background: transparent;
+}
+
+.cart-top-button {
+  border: 0;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+  background: var(--savor-ink);
+  color: #fff;
+}
+
+.cart-top-button span {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  font-size: 0;
+  line-height: 1;
+}
+
+.cart-top-button svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #f8f5ed;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.cart-top-button b {
+  position: absolute;
+  margin: -29px -30px 0 0;
+  background: var(--savor-yellow);
+  color: var(--savor-ink);
+}
+
+.menu-hero {
+  min-height: min(640px, calc(100vh - 74px));
+  display: flex;
+  align-items: center;
+  padding: 80px 5.2%;
+  color: #fff;
+  background-image: linear-gradient(90deg, rgba(16, 40, 30, 0.88) 0%, rgba(16, 40, 30, 0.6) 42%, rgba(16, 40, 30, 0.18) 100%), url('https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1800&q=88');
+  background-size: cover;
+  background-position: center;
+}
+
+.menu-hero-copy {
+  max-width: 700px;
+}
+
+.hero-kicker {
+  color: var(--savor-yellow);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 0 28px;
+}
+
+.hero-kicker span {
+  display: inline-block;
+  width: 36px;
+  border-top: 1px solid var(--savor-yellow);
+  margin: 0 14px 4px 0;
+}
+
+.menu-hero h1 {
+  font: 400 clamp(58px, 8vw, 106px)/0.88 Georgia, serif;
+  letter-spacing: -5px;
+  margin: 0;
+}
+
+.menu-hero h1 em {
+  color: var(--savor-yellow);
+  font-style: italic;
+}
+
+.menu-hero-copy > p:not(.hero-kicker) {
+  color: #f1eee5;
+  font-size: 18px;
+  line-height: 1.65;
+  margin: 28px 0 36px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-button {
+  border: 0;
+  border-radius: 999px;
+  background: var(--savor-yellow);
+  color: var(--savor-ink);
+  min-height: 54px;
+  padding: 12px 25px;
+  font-weight: 700;
+}
+
+.hero-button span {
+  margin-left: 14px;
+  font-size: 18px;
+}
+
+.open-note {
+  font-size: 13px;
+  color: #f4f1e8;
+}
+
+.open-note i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: #8bc59b;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    padding-top: 12px;
+  }
+
+  .book-table-nav {
+    display: none;
+  }
+
+  .menu-hero {
+    min-height: 590px;
+    padding: 60px 20px 50px;
+    align-items: flex-end;
+    background-position: 63% center;
+  }
+
+  .hero-kicker {
+    font-size: 10px;
+    letter-spacing: 2px;
+    line-height: 1.6;
+  }
+
+  .menu-hero h1 {
+    font-size: clamp(52px, 16vw, 76px);
+    letter-spacing: -3px;
+  }
+
+  .menu-hero-copy > p:not(.hero-kicker) {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 23px 0 28px;
+  }
+
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
