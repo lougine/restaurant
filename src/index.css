@@ -10,7 +10,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
 .access-button {
   border: 0;
   background: transparent;
@@ -23,4 +22,64 @@ code {
 
 .access-button:hover {
   text-decoration: underline;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.topbar-hidden {
+  transform: translateY(-100%);
+}
+
+.cart-top-button {
+  border: 1px solid #dd6b45;
+  background: #fff8f4;
+  color: #b85435;
+  border-radius: 5px;
+  padding: 9px 13px;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.cart-top-button span {
+  font-size: 14px;
+}
+
+.cart-top-button b {
+  min-width: 17px;
+  border-radius: 10px;
+  background: #dd6b45;
+  color: #fff;
+  padding: 2px 5px;
+  font-size: 9px;
+}
+
+.table-number-field {
+  display: block;
+  color: #777a71;
+  font-size: 10px;
+  margin: 15px 0 3px;
+}
+
+.table-number-field input {
+  display: block;
+  width: 100%;
+  border: 1px solid #dedfd8;
+  border-radius: 4px;
+  color: #242523;
+  background: #fbfbf8;
+  font: inherit;
+  margin-top: 7px;
+  padding: 9px 10px;
+}
+
+.table-number-field input:focus {
+  outline: 2px solid #f0c6b7;
+  border-color: #dd6b45;
 }

@@ -1,0 +1,501 @@
+/* Responsive layout rules for phones, tablets, and compact laptops. */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  min-height: 40px;
+}
+
+.app-shell {
+  width: 100%;
+  min-width: 0;
+}
+
+.content {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.page-heading,
+.menu-layout,
+.kitchen-board,
+.reservation-layout,
+.report-lower,
+.metric-grid {
+  width: 100%;
+}
+
+@media (max-width: 1180px) {
+  .sidebar {
+    width: 220px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .page-heading,
+  .menu-layout,
+  .kitchen-board,
+  .reservation-layout,
+  .report-lower,
+  .metric-grid {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .menu-layout {
+    gap: 28px;
+  }
+
+  .food-image {
+    height: 155px;
+  }
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 190px;
+  }
+
+  .sidebar .status-time,
+  .sidebar .help-box {
+    display: none;
+  }
+
+  .page-heading h1 {
+    font-size: 34px;
+  }
+
+  .menu-layout {
+    grid-template-columns: minmax(0, 1fr) 270px;
+    gap: 20px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .food-image {
+    height: 190px;
+  }
+
+  .order-columns {
+    grid-template-columns: repeat(3, minmax(210px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .order-column {
+    min-width: 210px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    display: none;
+  }
+
+  .topbar {
+    height: 62px;
+    padding: 0 16px;
+  }
+
+  .top-actions {
+    gap: 0;
+  }
+
+  .cart-top-button {
+    min-height: 38px;
+    padding: 7px 10px;
+  }
+
+  .page-heading,
+  .menu-layout,
+  .kitchen-board,
+  .reservation-layout,
+  .report-lower,
+  .metric-grid {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .page-heading {
+    padding-top: 30px;
+    padding-bottom: 26px;
+  }
+
+  .page-heading h1 {
+    font-size: clamp(29px, 8vw, 36px);
+    letter-spacing: -0.5px;
+  }
+
+  .page-heading.compact {
+    padding-bottom: 26px;
+  }
+
+  .heading-copy {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .eyebrow {
+    line-height: 1.5;
+  }
+
+  .live-pill {
+    display: inline-block;
+    margin-left: 7px;
+  }
+
+  .outline-button,
+  .small-button {
+    width: auto;
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .menu-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-bottom: 40px;
+  }
+
+  .category-row {
+    margin: 0 -16px 20px;
+    padding: 0 16px 13px;
+    scrollbar-width: none;
+  }
+
+  .category-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-row button {
+    min-height: 36px;
+    padding: 6px 11px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .food-image {
+    height: min(58vw, 260px);
+    min-height: 170px;
+  }
+
+  .food-details h3 {
+    font-size: 16px;
+  }
+
+  .food-details p {
+    max-width: 260px;
+    font-size: 11px;
+  }
+
+  .cart-panel {
+    width: 100%;
+    min-height: 0;
+    padding: 18px;
+    position: static;
+    scroll-margin-top: 74px;
+  }
+
+  .cart-heading h2 {
+    font-size: 17px;
+  }
+
+  .empty-cart {
+    padding: 30px 12px 24px;
+  }
+
+  .table-number-field input {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .primary-button {
+    min-height: 46px;
+  }
+
+  .kitchen-summary {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 14px 0 0;
+    width: 100%;
+  }
+
+  .order-columns {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .order-column {
+    min-width: 0;
+    width: 100%;
+    padding: 13px;
+  }
+
+  .order-card {
+    padding: 13px;
+  }
+
+  .reservation-layout,
+  .report-lower {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 40px;
+  }
+
+  .reservation-list,
+  .room-card,
+  .sales-card,
+  .popular-card {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .reservation-row {
+    gap: 9px;
+  }
+
+  .reservation-note {
+    display: none;
+  }
+
+  .room-visual {
+    height: 220px;
+  }
+
+  .room-legend {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    line-height: 1.8;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding-bottom: 16px;
+  }
+
+  .metric-card,
+  .metric-card.accent {
+    grid-column: auto;
+    min-height: 128px;
+    padding: 14px;
+  }
+
+  .metric-card.accent {
+    grid-column: 1 / -1;
+  }
+
+  .metric-card > strong {
+    font-size: clamp(20px, 7vw, 28px);
+    margin-top: 14px;
+  }
+
+  .metric-card small em {
+    display: block;
+    margin: 3px 0 0;
+  }
+
+  .chart {
+    height: 190px;
+  }
+}
+
+@media (max-width: 380px) {
+  .mobile-brand {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  .cart-top-button {
+    font-size: 10px;
+  }
+
+  .page-heading h1 {
+    font-size: 28px;
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card,
+  .metric-card.accent {
+    grid-column: auto;
+  }
+
+  .room-legend {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Site navigation replaces the desktop sidebar with a conventional top header. */
+.app-shell {
+  display: block;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  width: 100%;
+  height: 74px;
+  padding: 14px 5.2%;
+  flex-direction: row;
+  align-items: center;
+  gap: 28px;
+  border-right: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.venue-status {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.main-nav {
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav-label,
+.sidebar-bottom .help-box {
+  display: none;
+}
+
+.nav-item {
+  min-height: 40px;
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+.sidebar-bottom {
+  margin: 0;
+}
+
+.user-row {
+  white-space: nowrap;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  width: auto;
+  height: 74px;
+  padding: 0 5.2% 0 18px;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.topbar .top-actions,
+.topbar .cart-top-button {
+  pointer-events: auto;
+}
+
+.topbar .mobile-brand,
+.topbar .breadcrumbs {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    gap: 16px;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .venue-status {
+    display: none;
+  }
+
+  .nav-item {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .user-row .avatar,
+  .user-row > div:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    padding: 15px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .brand {
+    align-self: flex-start;
+  }
+
+  .main-nav {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+  }
+
+  .nav-item {
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .nav-item.active {
+    background: #fff;
+  }
+
+  .sidebar-bottom {
+    position: absolute;
+    right: 16px;
+    top: 14px;
+  }
+
+  .access-button {
+    min-height: 38px;
+  }
+
+  .topbar {
+    position: fixed;
+    top: 10px;
+    right: 16px;
+    height: 44px;
+    padding: 0;
+  }
+
+  .topbar-hidden {
+    transform: translateY(-80px);
+  }
+}

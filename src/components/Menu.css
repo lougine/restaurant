@@ -1,0 +1,47 @@
+/* Menu page and cart surface */
+.menu-page .menu-section,
+.menu-page .cart-panel {
+  min-width: 0;
+}
+
+.menu-page .menu-card {
+  min-width: 0;
+}
+
+.menu-page .food-image {
+  aspect-ratio: 16 / 10;
+  height: auto;
+  min-height: 150px;
+}
+
+.menu-page .category-row {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.menu-page .category-row::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-page .table-number-field input {
+  width: 100%;
+}
+
+.menu-page .cart-checkout-note {
+  color: #999d94;
+  font-size: 10px;
+  line-height: 1.5;
+  margin: 14px 0 0;
+}
+
+@media (max-width: 700px) {
+  .menu-page .food-image {
+    aspect-ratio: 16 / 10;
+    min-height: 175px;
+  }
+
+  .menu-page .food-details {
+    align-items: flex-start;
+  }
+}

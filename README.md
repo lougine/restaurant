@@ -1,3 +1,15 @@
+
+## Backend
+
+The Express, MongoDB, and Socket.io backend lives in `server/`.
+
+1. Copy `.env.example` to `.env` and set `MONGODB_URI` to your MongoDB or Atlas connection string.
+2. Start the API with `npm run server`.
+3. Use `npm run server:dev` during development for automatic restarts.
+
+The API runs on `http://localhost:4000` and exposes `/api/menu`, `/api/orders`, `/api/reservations`, and `/api/health`. Socket.io broadcasts `order:created`, `order:updated`, and `reservation:created` events.
+
+When `MONGODB_URI` is missing, the server uses an in-memory store so the API can still be developed locally. Data in that mode is lost when the server restarts.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
