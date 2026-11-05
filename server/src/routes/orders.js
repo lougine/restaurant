@@ -6,6 +6,19 @@ const { protect, authorize } = require('../middleware/auth');
 const router = express.Router();
 const statuses = ['pending', 'preparing', 'ready', 'served'];
 
+router.get('/popular', async (request, response, next) => {
+  try {
+    const popularItems = await Order.aggregate([
+      { $unwind: '$items' },
+      { $group: { _id: { $toLower: '$items.name' }, name: { $first: '$items.name' }, quantity: { $sum: '$items.quantity' } } },
+      { $sort: { quantity: -1, name: 1 } },
+    ]);
+    return response.json(popularItems.map(({ name, quantity }) => ({ name, quantity })));
+  } catch (error) {
+    return next(error);
+  }
+});
+
 router.get('/', protect, authorize('kitchen', 'owner'), async (request, response, next) => {
   try {
     return response.json(await Order.find().sort({ createdAt: -1 }));
