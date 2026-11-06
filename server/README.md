@@ -5,7 +5,7 @@ Express + MongoDB + Mongoose + JWT + Socket.io backend for the restaurant system
 ## Setup
 
 1. Copy `.env.example` to `.env`.
-2. Set `MONGODB_URI` to a local MongoDB or MongoDB Atlas connection string.
+2. Set `MONGODB_URI` to a local MongoDB or MongoDB Atlas connection string, or leave it empty to use a built-in in-memory demo database. The demo database adds the demo team accounts and a week of sample orders, and resets when the server restarts. If the database has no team accounts yet, the demo accounts are also created when using your own MongoDB.
 3. Set a long random value for `JWT_SECRET`.
 4. Install dependencies from the repository root:
 
