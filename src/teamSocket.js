@@ -1,4 +1,4 @@
-const API_ROOT = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
+const API_ROOT = (process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:4000/api')).replace(/\/$/, '');
 const SOCKET_ROOT = API_ROOT.replace(/\/api$/i, '');
 
 let clientPromise;
@@ -21,5 +21,5 @@ function loadSocketClient() {
 
 export async function connectTeamSocket(token) {
   const ioClient = await loadSocketClient();
-  return ioClient(SOCKET_ROOT, { auth: { token } });
+  return ioClient(SOCKET_ROOT || undefined, { auth: { token } });
 }

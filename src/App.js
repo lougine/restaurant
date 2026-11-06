@@ -14,7 +14,7 @@ import { connectTeamSocket } from './teamSocket';
 import './styles/Kitchen.css';
 import './styles/Reports.css';
 
-const API_ROOT = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
+const API_ROOT = (process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:4000/api')).replace(/\/$/, '');
 
 function mergeMenuRecords(records) {
   const keyFor = (name) => String(name || '').trim().toLowerCase();

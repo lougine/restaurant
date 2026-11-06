@@ -8,7 +8,7 @@ import blueberryMojitoImage from '../attachments/Blueberry-mojito.png';
 import bluePassionMojitoImage from '../attachments/Blue-Passion-mojito.png';
 import passionMojitoImage from '../attachments/Passion-mojito.png';
 
-const MENU_API_ROOT = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
+const MENU_API_ROOT = (process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:4000/api')).replace(/\/$/, '');
 
 export const menuItems = [
   { id: 1, name: 'Charred octopus', description: 'White bean purée, preserved lemon, smoked paprika', ingredients: ['Octopus', 'White bean purée', 'Preserved lemon', 'Smoked paprika'], allergens: ['Molluscs'], price: 400, category: 'Appetizers', image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=85', tag: "Chef's pick" },
