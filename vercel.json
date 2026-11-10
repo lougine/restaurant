@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "express",
+  "installCommand": "npm ci && npm ci --prefix server",
+  "buildCommand": "CI=false npm run build && node scripts/copy-build-to-public.js"
+}

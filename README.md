@@ -4,7 +4,7 @@ Restaurant ordering and table reservation system. Customers scan a QR code (or o
 
 **Stack:** React · Node.js + Express · MongoDB (Mongoose) · Socket.io
 
-**Live demo:** not deployed yet. [Deploy this repository to Render](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2Flougine%2Frestaurant) to create a public instance; Render assigns its URL when the first build finishes.
+**Live demo:** not deployed yet. [Import this repository into Vercel](https://vercel.com/new) to create a public instance; Vercel assigns its URL after the first build.
 
 | Demo login (choose **Team sign in**) | Email | Password |
 | --- | --- | --- |
@@ -50,18 +50,18 @@ Restaurant ordering and table reservation system. Customers scan a QR code (or o
 
 ---
 
-## Deploy free on Render
+## Deploy free on Vercel
 
-The repo includes [`render.yaml`](render.yaml) and can be launched with Render's deploy flow:
+The repository includes [`vercel.json`](vercel.json) and a Vercel server entry for the Express API and Socket.io endpoint.
 
-1. Open [Deploy this repository to Render](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2Flougine%2Frestaurant) and connect GitHub if prompted.
-2. Review the `savor-restaurant` web service and click **Apply**.
-3. When the first build finishes, copy the service's `.onrender.com` URL into the **Live demo** line above. The URL is assigned by Render during deployment and cannot be known beforehand.
+1. Open [Vercel New Project](https://vercel.com/new) and import `lougine/restaurant` from GitHub.
+2. Keep the repository root as the project root and deploy with the detected Express configuration.
+3. After the first build finishes, copy the assigned `.vercel.app` URL into the **Live demo** line above.
 
-One server builds the React app and serves the website, the API and live updates from the same address, so the QR codes work on any phone.
+The build publishes the React interface as static assets and runs the API and Socket.io from the Express function. Vercel supports WebSocket connections for Express and Socket.io applications.
 
-- **Database:** with no `MONGODB_URI` set, the server starts a built-in demo database with sample orders and the demo logins above. It resets when the server restarts. To keep data permanently, create a free MongoDB Atlas cluster and add its connection string as `MONGODB_URI` under the service's **Environment** tab in Render.
-- **Free tier:** the service sleeps after 15 minutes without visitors, so the first visit after that takes about a minute to wake it up.
+- **Demo data:** with no `MONGODB_URI`, Vercel seeds demo staff accounts and sample orders in an in-memory store. Data resets when a function instance restarts and can differ between instances. For persistent shared data, connect a MongoDB Atlas cluster and add its connection string as `MONGODB_URI` in the Vercel project's Environment Variables.
+- **Plan:** Vercel Hobby is free for personal projects. Function and WebSocket use follow the plan's limits.
 
 ## Run locally
 
@@ -89,7 +89,7 @@ npm start --prefix server   # website + API on http://localhost:4000
 
 ### Backend configuration
 
-Set `MONGODB_URI` and a long random `JWT_SECRET` in `server/.env`. Leave `MONGODB_URI` empty to use the in-memory demo database; its sample orders and demo accounts reset when the server restarts. When using MongoDB, demo accounts are added if no team accounts exist.
+Set `MONGODB_URI` and a long random `JWT_SECRET` in `server/.env`. Leave `MONGODB_URI` empty locally to use the built-in in-memory MongoDB demo database; sample orders and demo accounts reset when the server restarts. Vercel uses a lightweight in-memory demo store when no `MONGODB_URI` is set. When using MongoDB, demo accounts are added if no team accounts exist.
 
 To create or update team accounts, temporarily set `STAFF_LOGIN_EMAIL`, `STAFF_LOGIN_PASSWORD`, `OWNER_LOGIN_EMAIL`, and `OWNER_LOGIN_PASSWORD` in `server/.env`, then run:
 

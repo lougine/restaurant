@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+if (process.env.VERCEL && !process.env.MONGODB_URI) {
+  module.exports = require('../config/memoryModels').model('User');
+} else {
+
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
@@ -8,3 +12,4 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
+}

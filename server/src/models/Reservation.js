@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+if (process.env.VERCEL && !process.env.MONGODB_URI) {
+  module.exports = require('../config/memoryModels').model('Reservation');
+} else {
+
 const reservationSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   phone: { type: String, trim: true },
@@ -12,3 +16,4 @@ const reservationSchema = new mongoose.Schema({
 reservationSchema.index({ date: 1, timeSlot: 1, tableNumber: 1 }, { unique: true, sparse: true });
 
 module.exports = mongoose.model('Reservation', reservationSchema);
+}

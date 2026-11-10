@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+if (process.env.VERCEL && !process.env.MONGODB_URI) {
+  module.exports = require('../config/memoryModels').model('MenuItem');
+} else {
+
 const menuItemSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   price: { type: Number, required: true, min: 0 },
@@ -14,3 +18,4 @@ const menuItemSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('MenuItem', menuItemSchema);
+}

@@ -6,6 +6,11 @@ async function connectDatabase() {
   let uri = process.env.MONGODB_URI;
 
   if (!uri) {
+    if (process.env.VERCEL) {
+      console.log('MONGODB_URI not set: using the Vercel in-memory demo store');
+      return { demo: true, vercelMemory: true };
+    }
+
     const { MongoMemoryServer } = require('mongodb-memory-server');
     memoryServer = await MongoMemoryServer.create({
       instance: { args: ['--wiredTigerCacheSizeGB', '0.25'] },
