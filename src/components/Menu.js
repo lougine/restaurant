@@ -8,7 +8,7 @@ import blueberryMojitoImage from '../attachments/Blueberry-mojito.png';
 import bluePassionMojitoImage from '../attachments/Blue-Passion-mojito.png';
 import passionMojitoImage from '../attachments/Passion-mojito.png';
 
-const MENU_API_ROOT = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
+const MENU_API_ROOT = (process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:4000/api')).replace(/\/$/, '');
 
 export const menuItems = [
   { id: 1, name: 'Charred octopus', description: 'White bean purée, preserved lemon, smoked paprika', ingredients: ['Octopus', 'White bean purée', 'Preserved lemon', 'Smoked paprika'], allergens: ['Molluscs'], price: 400, category: 'Appetizers', image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=85', tag: "Chef's pick" },
@@ -22,7 +22,7 @@ export const menuItems = [
   { id: 9, name: 'Blue Passion mojito', description: 'Blue passion, lime, cane sugar, soda water', ingredients: ['Blue passion', 'Lime', 'Cane sugar', 'Soda water'], allergens: [], price: 150, category: 'Drinks', image: bluePassionMojitoImage },
 ];
 
-export function MenuView({ category, setCategory, addToCart, menuItems, cart, cartCount, cartTotal, tableNumber, setTableNumber, changeQuantity, placeOrder, cartOpen, setCartOpen }) {
+export function MenuView({ category, setCategory, addToCart, menuItems, cart, cartCount, cartTotal, tableNumber, setTableNumber, changeQuantity, placeOrder, cartOpen, setCartOpen, restaurantOpen }) {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,7 +45,7 @@ export function MenuView({ category, setCategory, addToCart, menuItems, cart, ca
   }, [category, menuItems, popularity, searchQuery]);
 
   return <div className="menu-page">
-    <section className="menu-hero"><div className="menu-hero-copy"><p className="hero-kicker"><span /> Seasonal menu · Summer 2026</p><h1>Gather around<br /><em>good food.</em></h1><p>Bold Mediterranean flavors, local ingredients, and a little fire.<br />Made to share, remembered long after.</p><div className="hero-actions"><button className="hero-button" onClick={() => document.querySelector('.favorites-heading')?.scrollIntoView({ behavior: 'smooth' })}>Explore the menu <span>→</span></button><span className="open-note"><i /> Open today until  11:00 pm</span></div></div></section>
+    <section className="menu-hero"><div className="menu-hero-copy"><p className="hero-kicker"><span /> Seasonal menu · Summer 2026</p><h1>Gather around<br /><em>good food.</em></h1><p>Bold Mediterranean flavors, local ingredients, and a little fire.<br />Made to share, remembered long after.</p><div className="hero-actions"><button className="hero-button" onClick={() => document.querySelector('.favorites-heading')?.scrollIntoView({ behavior: 'smooth' })}>Explore the menu <span>→</span></button><span className={`open-note ${restaurantOpen ? '' : 'closed'}`}><i />{restaurantOpen ? 'Open today until 11:00 pm' : 'Closed now'}</span></div></div></section>
     <section className="favorites-heading"><div><p className="eyebrow">From our kitchen</p><h1>{category === 'All' ? <>Most <em>ordered</em></> : <>{category} <em>menu</em></>}</h1></div><div className="menu-filter-tools"><label className="menu-search"><span aria-hidden="true">⌕</span><input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search the menu" aria-label="Search the menu" /></label><div className="category-row">{categories.map((item) => <button key={item} className={category === item ? 'selected' : ''} onClick={() => setCategory(item)}>{item}</button>)}</div></div></section>
     <div className="menu-layout"><section className="menu-section">{visibleItems.length ? <div className="menu-grid">{visibleItems.map((item) => {
       return <article className="menu-card" key={item.id}>

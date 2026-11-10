@@ -2,10 +2,13 @@ require('dotenv').config();
 
 const cors = require('cors');
 const express = require('express');
+const fs = require('fs');
 const http = require('http');
+const path = require('path');
 const { Server } = require('socket.io');
 const jwt = require('jsonwebtoken');
 const connectDatabase = require('./config/db');
+const { ensureDemoAccounts, seedDemoOrders } = require('./config/demoData');
 const authRoutes = require('./routes/auth');
 const menuRoutes = require('./routes/menu');
 const orderRoutes = require('./routes/orders');
@@ -43,6 +46,16 @@ app.use('/api/auth', authRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/reservations', require('./routes/reservations'));
+app.use('/api', (request, response) => response.status(404).json({ message: 'Not found' }));
+
+const buildDir = path.join(__dirname, '..', '..', 'build');
+if (fs.existsSync(path.join(buildDir, 'index.html'))) {
+  app.use(express.static(buildDir));
+  app.use((request, response, next) => {
+    if (request.method !== 'GET') return next();
+    return response.sendFile(path.join(buildDir, 'index.html'));
+  });
+}
 
 app.use((error, request, response, next) => {
   console.error(error);
@@ -53,7 +66,9 @@ app.use((error, request, response, next) => {
 const port = process.env.PORT || 4000;
 
 async function start() {
-  await connectDatabase();
+  const { demo } = await connectDatabase();
+  await ensureDemoAccounts();
+  if (demo) await seedDemoOrders();
   httpServer.listen(port, () => console.log(`API running at http://localhost:${port}`));
 }
 

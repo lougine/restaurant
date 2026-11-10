@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: savor-restaurant
+    runtime: node
+    plan: free
+    buildCommand: npm ci && CI=false npm run build && npm ci --prefix server
+    startCommand: npm start --prefix server
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: JWT_SECRET
+        generateValue: true

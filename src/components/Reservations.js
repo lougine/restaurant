@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../styles/Reservations.css';
 
-const API_ROOT = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
+const API_ROOT = (process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:4000/api')).replace(/\/$/, '');
 const times = ['5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:15 pm'];
 const tables = [1, 2, 3, 4, 5, 6, 7, 8];
 
