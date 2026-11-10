@@ -14,7 +14,7 @@ import { connectTeamSocket } from './teamSocket';
 import './styles/Kitchen.css';
 import './styles/Reports.css';
 
-const API_ROOT = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
+const API_ROOT = (process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:4000/api')).replace(/\/$/, '');
 
 function mergeMenuRecords(records) {
   const keyFor = (name) => String(name || '').trim().toLowerCase();
@@ -241,7 +241,7 @@ function App() {
       <main className={`content ${activeView === 'Reservations' ? 'content-reservations' : ''}`}>
         <header className="topbar"><div className="mobile-brand"><img className="brand-logo" src="/Logoo.png" alt="Savor Restaurant" /></div><div className="breadcrumbs"> savor <span>/</span> {activeView.toUpperCase()}</div><div className="top-actions">{!isStaff && !isOwner && <button className="cart-top-button" onClick={() => setCartOpen(true)} aria-label={`Open cart, ${cartCount} items`}><span aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 5h2l2.2 10.5h10.9L21 8H6" /><path d="M9 19h.01M18 19h.01" /></svg></span><b>{cartCount}</b></button>}</div></header>
 
-        {activeView === 'Menu' && <MenuView category={category} setCategory={setCategory} addToCart={addToCart} menuItems={managedMenu} cart={cart} cartCount={cartCount} cartTotal={cartTotal} tableNumber={tableNumber} setTableNumber={setTableNumber} changeQuantity={changeQuantity} placeOrder={placeOrder} cartOpen={cartOpen} setCartOpen={setCartOpen} />}
+        {activeView === 'Menu' && <MenuView category={category} setCategory={setCategory} addToCart={addToCart} menuItems={managedMenu} cart={cart} cartCount={cartCount} cartTotal={cartTotal} tableNumber={tableNumber} setTableNumber={setTableNumber} changeQuantity={changeQuantity} placeOrder={placeOrder} cartOpen={cartOpen} setCartOpen={setCartOpen} restaurantOpen={restaurantOpen} />}
         {activeView === 'Kitchen' && <KitchenView orders={orders} setOrders={setOrders} error={ordersError} reservations={kitchenReservations} reservationsError={kitchenReservationsError} />}
         {activeView === 'Reservations' && (isStaff || isOwner ? <StaffReservationsView /> : <ReservationsView />)}
         {activeView === 'About Us' && <AboutView onNavigate={setActiveView} />}
