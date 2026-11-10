@@ -75,6 +75,10 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/reservations', require('./routes/reservations'));
 app.use('/api', (request, response) => response.status(404).json({ message: 'Not found' }));
 
+if (process.env.VERCEL) {
+  app.get('/', (request, response) => response.redirect('/index.html'));
+}
+
 const buildDir = path.join(__dirname, '..', '..', 'build');
 if ((!process.env.VERCEL || !process.env.VERCEL_URL) && fs.existsSync(path.join(buildDir, 'index.html'))) {
   app.use(express.static(buildDir));
