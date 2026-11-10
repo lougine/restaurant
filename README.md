@@ -4,7 +4,7 @@ Restaurant ordering and table reservation system. Customers scan a QR code (or o
 
 **Stack:** React · Node.js + Express · MongoDB (Mongoose) · Socket.io
 
-**Live demo:** not deployed yet. [Import this repository into Vercel](https://vercel.com/new) to create a public instance; Vercel assigns its URL after the first build.
+**Live demo:** [Savor Restaurant](https://restaurant-lougine.vercel.app/)
 
 | Demo login (choose **Team sign in**) | Email | Password |
 | --- | --- | --- |
@@ -52,11 +52,11 @@ Restaurant ordering and table reservation system. Customers scan a QR code (or o
 
 ## Deploy free on Vercel
 
-The repository includes [`vercel.json`](vercel.json) and a Vercel server entry for the Express API and Socket.io endpoint.
+The repository includes [`vercel.json`](vercel.json) and a Vercel server entry for the Express API and Socket.io endpoint. The production demo is available at [restaurant-lougine.vercel.app](https://restaurant-lougine.vercel.app/).
 
 1. Open [Vercel New Project](https://vercel.com/new) and import `lougine/restaurant` from GitHub.
 2. Keep the repository root as the project root and deploy with the detected Express configuration.
-3. After the first build finishes, copy the assigned `.vercel.app` URL into the **Live demo** line above.
+3. Add `JWT_SECRET` in the Vercel Environment Variables before the first deployment.
 
 The build publishes the React interface as static assets and runs the API and Socket.io from the Express function. Vercel supports WebSocket connections for Express and Socket.io applications.
 
