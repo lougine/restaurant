@@ -76,7 +76,10 @@ app.use('/api/reservations', require('./routes/reservations'));
 app.use('/api', (request, response) => response.status(404).json({ message: 'Not found' }));
 
 if (process.env.VERCEL) {
-  app.get('/', (request, response) => response.redirect('/index.html'));
+  app.get('/', (request, response) => {
+    const query = request.originalUrl.includes('?') ? request.originalUrl.slice(request.originalUrl.indexOf('?')) : '';
+    return response.redirect(`/index.html${query}`);
+  });
 }
 
 const buildDir = path.join(__dirname, '..', '..', 'build');
