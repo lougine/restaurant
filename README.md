@@ -6,11 +6,6 @@ Restaurant ordering and table reservation system. Customers scan a QR code (or o
 
 **Live demo:** [Savor Restaurant](https://restaurant-lougine.vercel.app/)
 
-| Demo login (choose **Team sign in**) | Email | Password |
-| --- | --- | --- |
-| Kitchen / staff | `staff@savor.restaurant.eg` | `savor2026` |
-| Owner | `owner@savor.restaurant.eg` | `savor2026` |
-
 ---
 
 ## Features
